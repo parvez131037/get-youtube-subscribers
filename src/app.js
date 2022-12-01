@@ -17,7 +17,7 @@ const Joi = require("joi");
 
 //THE HOME ROUTE WHICH DISPLAY A CUSTOME MESSAGE;
 app.get('/', (request, response, next) => {
-  response.send({message:"Almabetter (Backend) Capstone Project By Parvez Ahmed Ansari"});
+  response.send({message:"Almabetter (Backend) Capstone Project By Parvez Ahmed Ansari ...This is a Home route do {...BaseURL/subscribers} or {...BaseURL/subscribers/name} for display the API data"});
 });
 
 
