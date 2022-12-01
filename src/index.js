@@ -1,6 +1,4 @@
-require('dotenv').config();
 //Import the express module
-
 const express = require('express')
 
 //import Routes from app.js
@@ -25,11 +23,12 @@ app.use(cors());
 
 // Connect to DATABASE
 // const DATABASE_URL = "mongodb://localhost/subscribers";
-const DATABASE_URL = "mongodb://0.0.0.0/subscribers";
+const DATABASE_URL ="mongodb+srv://parvez131037:ap131037@cluster0.0wkyvor.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(DATABASE_URL,{ useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection
 db.on('error', (err) => console.log(err))
 db.once('open', () => console.log('connected to database'))
+
 
 //app.listen() function which Binds and listens for connections on the specified host and port.
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`))
