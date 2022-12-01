@@ -1,4 +1,3 @@
-require('dotenv').config();
 // Import the mongoose module
 const mongoose = require('mongoose')
 
@@ -11,7 +10,7 @@ const data = require('./data')
 // Connect to DATABASE
 // const DATABASE_URL = "mongodb://localhost/subscribers";
 // Set up default mongoose connection
-const DATABASE_URL = "mongodb://0.0.0.0/subscribers";
+const DATABASE_URL = "mongodb+srv://parvez131037:ap131037@cluster0.0wkyvor.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(DATABASE_URL,{ useNewUrlParser: true, useUnifiedTopology: true });
 
 // Get the default connection
