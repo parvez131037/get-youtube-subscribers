@@ -99,7 +99,7 @@ app.post("/subscribers/add", async (request, response) => {
     subscribedChannel: Joi.string()                 //value should be a string
     .regex(/^[A-Za-z0-9 ]+$/)                      //value should matches that pattern 
     .min(2)                                       //value will not less than 2 character
-    .max(30)                                     //value will not greater than 100 character 
+    .max(50)                                     //value will not greater than 50 character 
     .required(),                                //value is required
 });
 
@@ -147,7 +147,7 @@ else{
       subscribedChannel: Joi.string()
       .regex(/^[A-Za-z0-9 ]+$/)
       .min(2)
-      .max(30)
+      .max(50)
       .required(),
   });
   // console.log(schema.validate(request.body));
@@ -183,7 +183,7 @@ const schema = Joi.object({
     subscribedChannel: Joi.string()
     .regex(/^[A-Za-z ]+$/)
         .min(2)
-        .max(30)
+        .max(50)
         .required(),
 });
 // console.log(schema.validate(request.body));
