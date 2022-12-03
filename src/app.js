@@ -1,6 +1,8 @@
 //Import the express module
 const express = require('express');
 
+const subscriberRouter = express.Router();
+
 const subscribers = require('./models/subscribers');
 //Import Schema model
 const subscriberModel = require('./models/subscribers');
@@ -16,7 +18,7 @@ const Joi = require("joi");
 
 
 //THE HOME ROUTE WHICH DISPLAY A CUSTOME MESSAGE;
-app.get('/', (request, response, next) => {
+subscriberRouter.get('/', (request, response, next) => {
   response.send({message:"Almabetter (Backend) Capstone Project By Parvez Ahmed Ansari ...This is a Home route do {...BaseURL/subscribers} or {...BaseURL/subscribers/name} for display the API data"});
 });
 
@@ -27,7 +29,7 @@ app.get('/', (request, response, next) => {
 
  //TO GET LIST OF ALL SUBSCRIBERS
 
-app.get("/subscribers", async (request, response) => {
+ subscriberRouter.get("/subscribers", async (request, response) => {
 
   //To retrieve records from a database collection we make use of the .find() function.
     const subscribers = await subscriberModel.find({});  
@@ -42,14 +44,14 @@ try {
 
   // TO GET NAME AND SUBSCRIBED CHANNEL OF SUBSCRIBERS
 
-  app.get("/subscribers/name", async (request, response) =>{
+  subscriberRouter.get("/subscribers/name", async (request, response) =>{
 
     try{
 //To retrieve selected records from a database collection we make use of the .find().select() function.
 const subscribers = await subscriberModel.find().select({
   name:1, subscribedChannel:1, _id:0
 })
-response.send(subscribers);
+    response.send(subscribers);
     }
     catch(err){
       response.status(404).send(error);
@@ -58,7 +60,7 @@ response.send(subscribers);
 
 // TO GET THE ONLY ONE SUBSCRIBER DATA WHICH IS FIND BY ID
 
-  app.get("/subscribers/:id", async (request, response) =>{
+subscriberRouter.get("/subscribers/:id", async (request, response) =>{
     try {
          const _id=request.params.id;
 
@@ -77,7 +79,7 @@ response.send(subscribers);
 
 
   // FOR ADDING A NEW SUBSCRIBER
-app.post("/subscribers/add", async (request, response) => {
+  subscriberRouter.post("/subscribers/add", async (request, response) => {
 
   /**
    * Joi will validate all the object keys that will pass down the values to the database.
@@ -99,7 +101,7 @@ app.post("/subscribers/add", async (request, response) => {
     subscribedChannel: Joi.string()                 //value should be a string
     .regex(/^[A-Za-z0-9 ]+$/)                      //value should matches that pattern 
     .min(2)                                       //value will not less than 2 character
-    .max(50)                                     //value will not greater than 50 character 
+    .max(30)                                     //value will not greater than 100 character 
     .required(),                                //value is required
 });
 
@@ -133,7 +135,7 @@ else{
 
   //FOR ADDING MULTIPLE SUBSCRIBERS
 
-  app.post("/subscribers/addMany", async (request, response) => {
+  subscriberRouter.post("/subscribers/addMany", async (request, response) => {
 
     //JOI API Validation
 
@@ -147,7 +149,7 @@ else{
       subscribedChannel: Joi.string()
       .regex(/^[A-Za-z0-9 ]+$/)
       .min(2)
-      .max(50)
+      .max(30)
       .required(),
   });
   // console.log(schema.validate(request.body));
@@ -169,7 +171,7 @@ response.status(400).send(error)
 
 //FOR UPDATING THE SUBSCRIBER DATA BY A ID
 
-app.patch("/subscribers/update/:id", async (request, response)=>{
+subscriberRouter.patch("/subscribers/update/:id", async (request, response)=>{
 
   //JOI API Validation
 
@@ -183,7 +185,7 @@ const schema = Joi.object({
     subscribedChannel: Joi.string()
     .regex(/^[A-Za-z ]+$/)
         .min(2)
-        .max(50)
+        .max(30)
         .required(),
 });
 // console.log(schema.validate(request.body));
@@ -227,7 +229,7 @@ catch(err){
 
 // FOR DELETING ANY PERTICULAR SUBSCRIBER WHICH IS FIND BY ID
 
-app.delete("/subscribers/delete/:id", async (request, response) =>{
+subscriberRouter.delete("/subscribers/delete/:id", async (request, response) =>{
     try{
 
       //deleteOne() method to easily remove a one record from the database
@@ -242,4 +244,5 @@ app.delete("/subscribers/delete/:id", async (request, response) =>{
 
   
 //Exports module
-module.exports = app;
+// module.exports = app;
+module.exports = subscriberRouter;
