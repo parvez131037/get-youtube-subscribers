@@ -2,7 +2,8 @@
 const express = require('express')
 
 //import Routes from app.js
-const app = require('./app.js')
+// const app = require('./app.js')
+const app = express();
 
 //import mongoose module
 const mongoose = require('mongoose')
@@ -12,7 +13,9 @@ const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3000;
 
 // Wide listing a cors to accept a specific domain route
-const cors = require('cors')
+const cors = require('cors');
+const subscriberRouter = require('./app');
+// const { response } = require('./app.js');
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json())
@@ -20,6 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 
 //enable cors usage
 app.use(cors());
+
+app.use("/api", subscriberRouter);
 
 // Connect to DATABASE
 // const DATABASE_URL = "mongodb://localhost/subscribers";
